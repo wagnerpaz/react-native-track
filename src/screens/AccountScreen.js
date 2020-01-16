@@ -1,12 +1,19 @@
-import React from 'react';
-import {View, Text, Button, StyleSheet} from 'react-native';
+import React, {useContext} from 'react';
+import {View, StyleSheet} from 'react-native';
+import {SafeAreaView} from 'react-navigation';
+import {Text, Button} from 'react-native-elements';
+import Spacer from '../components/Spacer';
+
+import {Context as AuthContext} from '../context/AuthContext';
 
 const AccountScreen = ({navigation}) => {
+    const {signout} = useContext(AuthContext);
+
     return (
-        <View>
-            <Text>AccountScreen</Text>
-            <Button title="Go to loginFlow" onPress={() => navigation.navigate('loginFlow')}/>
-        </View>
+        <SafeAreaView forceInset={{top: 'always'}}>
+            <Text h3>AccountScreen</Text>
+            <Button title="Sign Out" onPress={signout}/>
+        </SafeAreaView>
     );
 };
 
