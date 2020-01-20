@@ -3,7 +3,10 @@ import createDataContext from './createDataContext';
 const locationReducer = (state, action) => {
     switch(action.type) {
         case 'add_current_location':
-            return {...state, currentLocation: action.payload};
+            return {...state,
+                currentLocation: action.payload,
+                initialLocation: !state.initialLocation ? action.payload : state.initialLocation
+            };
         default:
             return state;
     }
@@ -29,4 +32,5 @@ export const {Provider, Context} = createDataContext(locationReducer, {
     recording: false,
     locations: [],
     currentLocation: null,
+    initialLocation: null,
 });

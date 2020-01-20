@@ -1,6 +1,6 @@
 import * as Location from 'expo-location';
 
-const tenMetersWithDegrees = 0.0001;
+const tenMetersWithDegrees = 0.00001;
 
 export default (initialCoord = {longitude: 0, latitude: 0}) => {
     const getLocation = (increment) => {
