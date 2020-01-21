@@ -26,5 +26,5 @@ export default (initialCoord = {longitude: 0, latitude: 0}) => {
             watchId: Location._getCurrentWatchId(),
             location: getLocation(counter++)
         });
-    });
+    }, 1000);
 };

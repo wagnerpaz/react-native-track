@@ -1,29 +1,31 @@
 import mockLocation from '../_mockLocation';
 
-import React, {useState, useEffect, useContext} from 'react';
+import React, {useState, useEffect, useContext, useCallback} from 'react';
 import {StyleSheet} from 'react-native';
 import {SafeAreaView, withNavigationFocus} from 'react-navigation';
 import {Text} from 'react-native-elements';
 import {requestPermissionsAsync, watchPositionAsync, Accuracy} from 'expo-location';
 
-import Map from '../components/Map';
 
 import {Context as LocationContext} from '../context/LocationContext';
-
 import useLocation from '../hooks/useLocation';
+import Map from '../components/Map';
+import TrackForm from '../components/TrackForm';
 
 const TrackCreateScreen = ({isFocused}) => {
-    const {state: locationState, addLocation} = useContext(LocationContext);
-    
-    const [err] = useLocation(isFocused, (location) => {
-        addLocation(location);
-    });
+    const {state: {recording, initialLocation, locations}, addLocation} = useContext(LocationContext);
+
+    const callback = useCallback((location) => {
+        addLocation(location, recording);
+    }, [recording]);
+
+    const [err] = useLocation(isFocused || recording, callback);
     
     useEffect(() => {
-        if(locationState.initialLocation) {
-            mockLocation(locationState.initialLocation.coords);
+        if(initialLocation) {
+            mockLocation(initialLocation.coords);
         }
-    }, [locationState.initialLocation]);
+    }, [initialLocation]);
 
     return (
         <SafeAreaView forceInset={{top: 'always'}}>
@@ -32,6 +34,7 @@ const TrackCreateScreen = ({isFocused}) => {
             {err ?
                 <Text>Please enable location services.</Text>
             : null}
+            <TrackForm/>
         </SafeAreaView>
     );
 };
