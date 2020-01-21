@@ -11,8 +11,7 @@ const TrackListScreen = ({navigation}) => {
 
     return (
         <View>
-            <NavigationEvents onWillBlur={fetchTracks}/>
-            <Text>TrackListScreen</Text>
+            <NavigationEvents onWillFocus={fetchTracks}/>
             <FlatList
                 data={trackState}
                 keyExtractor={track => track._id}
@@ -26,9 +25,12 @@ const TrackListScreen = ({navigation}) => {
                     );
                 }}
             />
-            <Button title="Go to Track Detail" onPress={() => navigation.navigate('TrackDetail')}/>
         </View>
     );
+};
+
+TrackListScreen.navigationOptions = {
+    title: 'Tracks',
 };
 
 const styles = StyleSheet.create({});
