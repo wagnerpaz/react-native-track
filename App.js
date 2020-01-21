@@ -7,6 +7,7 @@ import {setNavigator} from './src/navigationRef';
 
 import {Provider as AuthProvider} from './src/context/AuthContext';
 import {Provider as LocationProvider} from './src/context/LocationContext';
+import {Provider as TrackProvider} from './src/context/TrackContext';
 
 import AccountScreen from './src/screens/AccountScreen';
 import SigninScreen from './src/screens/SigninScreen';
@@ -36,8 +37,10 @@ const App = createAppContainer(switchNavigator);
 
 export default () => (
   <AuthProvider>
-    <LocationProvider>
-      <App ref={(navigator) => setNavigator(navigator)}/>
-    </LocationProvider>
+    <TrackProvider>
+      <LocationProvider>
+        <App ref={(navigator) => setNavigator(navigator)}/>
+      </LocationProvider>
+    </TrackProvider>
   </AuthProvider>
 );
