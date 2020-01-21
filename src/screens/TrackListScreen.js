@@ -4,6 +4,7 @@ import {ListItem} from 'react-native-elements';
 import {NavigationEvents} from 'react-navigation';
 
 import {Context as TrackContext} from '../context/TrackContext';
+import { navigate } from '../navigationRef';
 
 const TrackListScreen = ({navigation}) => {
     const {state: trackState, fetchTracks} = useContext(TrackContext);
@@ -17,7 +18,9 @@ const TrackListScreen = ({navigation}) => {
                 keyExtractor={track => track._id}
                 renderItem={({item}) => {
                     return (
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress={() => {
+                            navigation.navigate('TrackDetail', {_id: item._id});
+                        }}>
                             <ListItem chevron title={item.name}/>
                         </TouchableOpacity>
                     );
